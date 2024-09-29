@@ -53,7 +53,7 @@ contract HelperConfig is Script{
     }
    
     
-    //Deploys a mock priceFeed using `MockV3Aggregator` and returns its address.
+    //Deploys a mock priceFeed using `MockV3Aggregator` and returns the local network config using the mock priceFeed address.
     //This is used for local development on an Anvil chain or test environment.
     function getAnvilEthConfig() public  returns (NetworkConfig memory) {
         // If priceFeed is already set, return the existing config
@@ -66,7 +66,7 @@ contract HelperConfig is Script{
         MockV3Aggregator mockPriceFeed = new MockV3Aggregator(DECIMAL, INITIAL_PRICE);
         vm.stopBroadcast();
         
-        //return the address of the mock price feed contract.
+        //return the config with the mockPriceFeed address
         NetworkConfig memory anvilConfig = NetworkConfig({priceFeed: address(mockPriceFeed)});
         return anvilConfig;
 

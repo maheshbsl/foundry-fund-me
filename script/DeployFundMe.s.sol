@@ -9,7 +9,12 @@ import {HelperConfig} from "./HelperConfig.s.sol";
 contract DeployFundMe is Script {
     //run() is the entry point where the script that Foundry will call when
     //executing the script.
-    function run() external returns (FundMe) {
+
+    function run() external returns(FundMe, HelperConfig){
+        return deployFundMe();
+
+    }
+    function deployFundMe() public  returns (FundMe, HelperConfig) {
 
         //Before Broadcast , we will decide the price feed
         HelperConfig helperConfig = new HelperConfig();
@@ -49,7 +54,7 @@ contract DeployFundMe is Script {
 
          */
         vm.stopBroadcast();
-        return fundMe;
+        return (fundMe, helperConfig);
 
         /**
         How it works
@@ -63,4 +68,6 @@ contract DeployFundMe is Script {
         to the blockchain.
         */   
     }
+    
+
 }

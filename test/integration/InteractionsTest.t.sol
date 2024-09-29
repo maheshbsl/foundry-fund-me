@@ -6,9 +6,11 @@ import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../../src/FundMe.sol";
 import {DeployFundMe} from  "../../script/DeployFundMe.s.sol";
 import {FundFundMe, WithdrawFundMe} from "../../script/Interactions.s.sol";
+import {HelperConfig} from "script/HelperConfig.s.sol";
 
 contract FundMeTestIntegration is Test {
     FundMe fundMe;
+    HelperConfig helperConfig;
 
     address USER = makeAddr("user");
     uint256 constant SEND_VALUE = 0.1 ether;
@@ -18,7 +20,7 @@ contract FundMeTestIntegration is Test {
     function setUp() external {
         // creating a new instance of DeployFundMe 
         DeployFundMe deployFundMe = new DeployFundMe();
-        fundMe = deployFundMe.run();
+        (fundMe, helperConfig) = deployFundMe.run();
         vm.deal(USER, STARTING_VALUE);
    }
 

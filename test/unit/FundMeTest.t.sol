@@ -5,9 +5,11 @@ pragma solidity ^0.8.26;
 import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../../src/FundMe.sol";
 import {DeployFundMe} from  "../../script/DeployFundMe.s.sol";
+import {HelperConfig} from "script/HelperConfig.s.sol";
 
 contract FundMeTest is Test {
     FundMe fundMe;
+    HelperConfig helperConfig;
     
     address USER = makeAddr("user");
     uint256 constant SEND_VALUE = 0.1 ether; //100000000000000000
@@ -22,7 +24,7 @@ contract FundMeTest is Test {
         //creating a new instance of the contract DeployFundMe named deployFundMe
         DeployFundMe deployFundMe = new DeployFundMe();
         //deploying the fundME using the new instance `deployFundMe`
-        fundMe = deployFundMe.run();
+        (fundMe, helperConfig)  = deployFundMe.run();
         vm.deal(USER, STARTING_VALUE);
     }
 
